@@ -22,13 +22,13 @@ public class MemberController {
 
     @GetMapping()
     public ResponseEntity<String> findMembers() {
-        memberService.findMembers();
+        memberService.getAllMember();
         return new ResponseEntity<>("전체 사용자 조회 !", HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<String> findMemberById(@PathVariable("id") long id) {
-        memberService.findMemberById(id);
+        memberService.getMemberById(id);
         return new ResponseEntity<>("사용자 조회 !", HttpStatus.OK);
     }
 

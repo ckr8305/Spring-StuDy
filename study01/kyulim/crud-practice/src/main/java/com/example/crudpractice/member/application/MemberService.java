@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,7 +24,7 @@ public class MemberService {
         memberRepository.save(member);
     }
 
-    public MemberListResDto findMembers() {
+    public MemberListResDto getAllMember() {
         List<Member> members = memberRepository.findAll();
 
         List<MemberInfoResDto> memberInfoResDtos = members.stream()
@@ -35,8 +34,7 @@ public class MemberService {
         return MemberListResDto.from(memberInfoResDtos);
     }
 
-    @Transactional
-    public MemberInfoResDto findMemberById(long id) {
+    public MemberInfoResDto getMemberById(long id) {
         Member member = memberRepository.findById(id).orElseThrow();
         return MemberInfoResDto.from(member);
     }

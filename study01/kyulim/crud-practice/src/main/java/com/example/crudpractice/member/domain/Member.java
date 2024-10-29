@@ -1,6 +1,7 @@
 package com.example.crudpractice.member.domain;
 
-import com.example.crudpractice.member.api.dto.reqeust.MemberReqDto;
+import com.example.crudpractice.member.api.dto.reqeust.MemberCreateReqDto;
+import com.example.crudpractice.member.api.dto.reqeust.MemberUpdateReqDto;
 import com.example.crudpractice.order.domain.Order;
 import jakarta.persistence.*;
 import lombok.*;
@@ -34,8 +35,7 @@ public class Member {
         this.createAt = createAt;
     }
 
-    public void update(MemberReqDto memberReqDto) {
-        this.name = name;
-        this.email = email;
+    public void update(MemberUpdateReqDto memberUpdateReqDto) {
+        this.name = memberUpdateReqDto.name();
     }
 }

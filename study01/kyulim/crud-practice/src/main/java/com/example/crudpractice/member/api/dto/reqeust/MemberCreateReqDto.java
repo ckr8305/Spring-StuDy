@@ -4,11 +4,11 @@ import com.example.crudpractice.member.domain.Member;
 import lombok.Builder;
 
 @Builder
-public record MemberReqDto(
+public record MemberCreateReqDto(
         String name,
         String email
 ) {
-    public Member toEntity(MemberReqDto memberReqDto) {
+    public Member toEntity(MemberCreateReqDto memberReqDto) {
         return Member.builder()
                 .name(memberReqDto.name())
                 .email(memberReqDto.email())

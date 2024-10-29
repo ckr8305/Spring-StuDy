@@ -1,6 +1,10 @@
 package com.example.crudpractice.member.api;
 
-import com.example.crudpractice.member.api.dto.reqeust.MemberReqDto;
+import com.example.crudpractice.global.RspTemplate;
+import com.example.crudpractice.member.api.dto.reqeust.MemberCreateReqDto;
+import com.example.crudpractice.member.api.dto.reqeust.MemberUpdateReqDto;
+import com.example.crudpractice.member.api.dto.response.MemberInfoResDto;
+import com.example.crudpractice.member.api.dto.response.MemberListResDto;
 import com.example.crudpractice.member.application.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,32 +19,33 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping()
-    public ResponseEntity<String> saveMember(@RequestBody MemberReqDto memberReqDto) {
+    public RspTemplate<Void> saveMember(@RequestBody MemberCreateReqDto memberReqDto) {
         memberService.saveMember(memberReqDto);
-        return new ResponseEntity<>("사용자 저장 !", HttpStatus.CREATED);
+        return new RspTemplate<>(HttpStatus.CREATED, "사용자 등록 !");
     }
 
     @GetMapping()
-    public ResponseEntity<String> findMembers() {
-        memberService.getAllMember();
-        return new ResponseEntity<>("전체 사용자 조회 !", HttpStatus.OK);
+    public RspTemplate<MemberListResDto> findMembers() {
+        MemberListResDto members = memberService.getAllMember();
+        return new RspTemplate<>(HttpStatus.OK, "전체 사용자 조회 !", members);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<String> findMemberById(@PathVariable("id") long id) {
-        memberService.getMemberById(id);
-        return new ResponseEntity<>("사용자 조회 !", HttpStatus.OK);
+    public RspTemplate<MemberInfoResDto> findMemberById(@PathVariable("id") long id) {
+        MemberInfoResDto member = memberService.getMemberById(id);
+        return new RspTemplate<>(HttpStatus.OK, "사용자 조회 !", member);
     }
 
-    @PatchMapping()
-    public ResponseEntity<String> updateMember(@PathVariable("id") long id, MemberReqDto memberReqDto) {
-        memberService.updateMember(id, memberReqDto);
-        return new ResponseEntity<>("사용자 수정 !", HttpStatus.OK);
+    @PatchMapping("/{id}")
+    public RspTemplate<MemberInfoResDto> updateMember(@PathVariable("id") long id, @RequestBody MemberUpdateReqDto memberUpdateReqDto) {
+        memberService.updateMember(id, memberUpdateReqDto);
+        MemberInfoResDto member = memberService.getMemberById(id);
+        return new RspTemplate<>(HttpStatus.OK, "사용자 조회 !", member);
     }
 
     @DeleteMapping()
-    public ResponseEntity<String> deleteMember(@PathVariable("id") long id) {
+    public RspTemplate<String> deleteMember(@PathVariable("id") long id) {
         memberService.deleteMember(id);
-        return new ResponseEntity<>("사용자 삭제 !", HttpStatus.OK);
+        return new RspTemplate<>(HttpStatus.OK, "사용자 삭제 !");
     }
 }

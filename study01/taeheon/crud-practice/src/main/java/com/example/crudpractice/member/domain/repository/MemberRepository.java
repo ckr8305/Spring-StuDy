@@ -1,4 +1,4 @@
-package com.example.crudpractice.member.repository;
+package com.example.crudpractice.member.domain.repository;
 
 import com.example.crudpractice.member.domain.Member;
 import org.springframework.data.jpa.repository.JpaRepository;

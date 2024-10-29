@@ -4,12 +4,12 @@ import com.example.crudpractice.product.domain.Product;
 import lombok.Builder;
 
 @Builder
-public record ProductReqDto(
+public record ProductCreateReqDto(
     String name,
     int quantity,
     int price
 ) {
-    public Product toEntity(ProductReqDto productReqDtoDto) {
+    public Product toEntity(ProductCreateReqDto productReqDtoDto) {
         return Product.builder()
                 .name(productReqDtoDto.name())
                 .quantity(productReqDtoDto.quantity())

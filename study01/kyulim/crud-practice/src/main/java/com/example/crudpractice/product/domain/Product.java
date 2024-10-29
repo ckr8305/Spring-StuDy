@@ -1,9 +1,9 @@
 package com.example.crudpractice.product.domain;
 
 import com.example.crudpractice.orderProduct.domain.OrderProduct;
-import com.example.crudpractice.product.api.dto.reqeust.ProductReqDto;
+import com.example.crudpractice.product.api.dto.reqeust.ProductCreateReqDto;
+import com.example.crudpractice.product.api.dto.reqeust.ProductUpdateReqDto;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,9 +38,9 @@ public class Product {
         this.createAt = createAt;
     }
 
-    public void update(ProductReqDto productReqDto) {
-        this.name = name;
-        this.quantity = quantity;
-        this.price = price;
+    public void update(ProductUpdateReqDto productUpdateReqDto) {
+        this.name = productUpdateReqDto.name();
+        this.quantity = productUpdateReqDto.quantity();
+        this.price = productUpdateReqDto.price();
     }
 }

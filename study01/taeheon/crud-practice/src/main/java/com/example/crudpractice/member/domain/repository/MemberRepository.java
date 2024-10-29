@@ -1,9 +1,10 @@
-package com.example.crudpractice.member.repository;
+package com.example.crudpractice.member.domain.repository;
 
 import com.example.crudpractice.member.domain.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
-@Repository
+import java.util.Optional;
+
 public interface MemberRepository extends JpaRepository<Member, Long> {
+    Optional<Member> findById(Long id);
 }

@@ -1,6 +1,7 @@
 package com.example.crudpractice.member.application;
 
-import com.example.crudpractice.member.api.dto.reqeust.MemberReqDto;
+import com.example.crudpractice.member.api.dto.reqeust.MemberCreateReqDto;
+import com.example.crudpractice.member.api.dto.reqeust.MemberUpdateReqDto;
 import com.example.crudpractice.member.api.dto.response.MemberInfoResDto;
 import com.example.crudpractice.member.api.dto.response.MemberListResDto;
 import com.example.crudpractice.member.domain.Member;
@@ -19,7 +20,7 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
     @Transactional
-    public void saveMember(MemberReqDto requestDto) {
+    public void saveMember(MemberCreateReqDto requestDto) {
         Member member = requestDto.toEntity(requestDto);
         memberRepository.save(member);
     }
@@ -40,9 +41,9 @@ public class MemberService {
     }
 
     @Transactional
-    public void updateMember(long id, MemberReqDto memberReqDto) {
+    public void updateMember(long id, MemberUpdateReqDto memberUpdateReqDto) {
         Member member = memberRepository.findById(id).orElseThrow();
-        member.update(memberReqDto);
+        member.update(memberUpdateReqDto);
     }
 
     @Transactional

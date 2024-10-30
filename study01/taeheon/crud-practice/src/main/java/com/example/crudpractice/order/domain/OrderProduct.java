@@ -1,9 +1,9 @@
-package com.example.crudpractice.orderProduct.domain;
+package com.example.crudpractice.order.domain;
 
 import com.example.crudpractice.product.domain.Product;
-import com.example.crudpractice.order.domain.Order;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -12,7 +12,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OrderProduct {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_product_id", nullable = false)
     private Long orderProductId;
 
@@ -28,4 +29,12 @@ public class OrderProduct {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product; // 주문 상품
+
+    @Builder
+    public OrderProduct(Product product, Order order, int totalCount, int totalAmount) {
+        this.product = product;
+        this.order = order;
+        this.totalCount = totalCount;
+        this.totalAmount = totalAmount;
+    }
 }

@@ -1,22 +1,17 @@
-package com.example.crudpractice.product.dto.request;
+package com.example.crudpractice.product.api.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
-@Getter
-@NoArgsConstructor
-public class ProductUpdateRequest {
-
-    @NotBlank
-    private String name;
-    @NotNull
-    private int quantity;
-    @NotNull
-    private int price;
-
+public record ProductUpdateRequest(
+        @NotBlank
+        String name,
+        @NotNull
+        int quantity,
+        @NotNull
+        int price
+) {
     @Builder
     public ProductUpdateRequest(String name, int quantity, int price) {
         this.name = name;

@@ -2,9 +2,9 @@ package com.example.crudpractice.product.api;
 
 import com.example.crudpractice.global.template.RspTemplate;
 import com.example.crudpractice.product.application.ProductService;
-import com.example.crudpractice.product.dto.request.ProductSaveRequest;
-import com.example.crudpractice.product.dto.request.ProductUpdateRequest;
-import com.example.crudpractice.product.dto.response.ProductInfoResponse;
+import com.example.crudpractice.product.api.dto.request.ProductSaveRequest;
+import com.example.crudpractice.product.api.dto.request.ProductUpdateRequest;
+import com.example.crudpractice.product.api.dto.response.ProductInfoResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("products")
+@RequestMapping("/products")
 public class ProductController {
 
     private final ProductService productService;
@@ -31,22 +31,22 @@ public class ProductController {
         return new RspTemplate<>(HttpStatus.OK, "전체 상품 조회", products);
     }
 
-    @GetMapping("/{id}")
-    public RspTemplate<ProductInfoResponse> findProductById(@PathVariable("id") Long id) {
-        ProductInfoResponse product = productService.findProductById(id);
+    @GetMapping("/{productId}")
+    public RspTemplate<ProductInfoResponse> findProductById(@PathVariable("productId") Long productId) {
+        ProductInfoResponse product = productService.findProductById(productId);
         return new RspTemplate<>(HttpStatus.OK, "상품 조회", product);
     }
 
-    @PatchMapping("/{id}")
-    public RspTemplate<ProductInfoResponse> updateProduct(@PathVariable("id") Long id, @RequestBody @Valid ProductUpdateRequest requestDto) {
-        productService.updateProduct(id, requestDto);
-        ProductInfoResponse product = productService.findProductById(id);
+    @PatchMapping("/{productId}")
+    public RspTemplate<ProductInfoResponse> updateProduct(@PathVariable("productId") Long productId, @RequestBody @Valid ProductUpdateRequest requestDto) {
+        productService.updateProduct(productId, requestDto);
+        ProductInfoResponse product = productService.findProductById(productId);
         return new RspTemplate<>(HttpStatus.OK, "상품 수정", product);
     }
 
-    @DeleteMapping("/{id}")
-    public RspTemplate<String> deleteProduct(@PathVariable("id") Long id) {
-        productService.deleteProduct(id);
+    @DeleteMapping("/{productId}")
+    public RspTemplate<String> deleteProduct(@PathVariable("productId") Long productId) {
+        productService.deleteProduct(productId);
         return new RspTemplate<>(HttpStatus.OK, "상품 삭제");
     }
 }

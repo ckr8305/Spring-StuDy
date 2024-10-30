@@ -1,23 +1,19 @@
-package com.example.crudpractice.member.dto.request;
+package com.example.crudpractice.member.api.dto.request;
 
 import com.example.crudpractice.member.domain.Member;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-@Getter
-@NoArgsConstructor
-public class MemberSaveRequest {
-
-    @NotBlank
-    @Size(min = 3, max = 50)
-    private String name;
-    @Email
-    private String email;
+public record MemberSaveRequest(
+        @NotBlank
+        @Size(min = 3, max = 50)
+        String name,
+        @Email
+        String email
+) {
 
     public Member toEntity(MemberSaveRequest requestDto) {
         return Member.builder()

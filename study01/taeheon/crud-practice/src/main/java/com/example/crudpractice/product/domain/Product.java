@@ -1,6 +1,6 @@
 package com.example.crudpractice.product.domain;
 
-import com.example.crudpractice.orderProduct.domain.OrderProduct;
+import com.example.crudpractice.order.domain.OrderProduct;
 import com.example.crudpractice.product.dto.request.ProductUpdateRequest;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -17,7 +17,8 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Product {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id")
     private Long productId;
 

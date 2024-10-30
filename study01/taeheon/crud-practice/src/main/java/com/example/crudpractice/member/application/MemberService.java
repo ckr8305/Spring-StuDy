@@ -2,9 +2,9 @@ package com.example.crudpractice.member.application;
 
 import com.example.crudpractice.member.domain.Member;
 import com.example.crudpractice.member.domain.repository.MemberRepository;
-import com.example.crudpractice.member.dto.request.MemberSaveRequest;
-import com.example.crudpractice.member.dto.request.MemberUpdateRequest;
-import com.example.crudpractice.member.dto.response.MemberInfoResponse;
+import com.example.crudpractice.member.api.dto.request.MemberSaveRequest;
+import com.example.crudpractice.member.api.dto.request.MemberUpdateRequest;
+import com.example.crudpractice.member.api.dto.response.MemberInfoResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

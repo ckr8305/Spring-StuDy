@@ -2,9 +2,9 @@ package com.example.crudpractice.product.application;
 
 import com.example.crudpractice.product.domain.Product;
 import com.example.crudpractice.product.domain.repository.ProductRepository;
-import com.example.crudpractice.product.dto.request.ProductSaveRequest;
-import com.example.crudpractice.product.dto.request.ProductUpdateRequest;
-import com.example.crudpractice.product.dto.response.ProductInfoResponse;
+import com.example.crudpractice.product.api.dto.request.ProductSaveRequest;
+import com.example.crudpractice.product.api.dto.request.ProductUpdateRequest;
+import com.example.crudpractice.product.api.dto.response.ProductInfoResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

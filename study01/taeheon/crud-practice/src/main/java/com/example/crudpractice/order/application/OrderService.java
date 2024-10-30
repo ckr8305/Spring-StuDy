@@ -11,7 +11,7 @@ import com.example.crudpractice.order.domain.repository.OrderProductRepository;
 import com.example.crudpractice.order.domain.repository.OrderRepository;
 import com.example.crudpractice.product.domain.Product;
 import com.example.crudpractice.product.domain.repository.ProductRepository;
-import com.example.crudpractice.product.dto.request.ProductUpdateRequest;
+import com.example.crudpractice.product.api.dto.request.ProductUpdateRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

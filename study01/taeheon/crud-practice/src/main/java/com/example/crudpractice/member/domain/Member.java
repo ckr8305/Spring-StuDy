@@ -1,6 +1,6 @@
 package com.example.crudpractice.member.domain;
 
-import com.example.crudpractice.member.dto.request.MemberUpdateRequest;
+import com.example.crudpractice.member.api.dto.request.MemberUpdateRequest;
 import com.example.crudpractice.order.domain.Order;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -42,6 +42,6 @@ public class Member {
     }
 
     public void update(MemberUpdateRequest requestDto) {
-        this.name = requestDto.getName();
+        this.name = requestDto.name();
     }
 }

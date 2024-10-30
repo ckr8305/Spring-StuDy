@@ -26,6 +26,6 @@ public class OrderController {
     @GetMapping("/{memberId}")
     public RspTemplate<List<OrderInfoResponse>> getOrderByMember(@PathVariable("memberId") Long memberId) {
         List<OrderInfoResponse> orderInfoResponseList = orderService.findOrderInfoByMemberId(memberId);
-        return new RspTemplate<>(HttpStatus.OK, "주문 목록", orderInfoResponseList);
+        return new RspTemplate<>(HttpStatus.OK, "사용자 주문 목록", orderInfoResponseList);
     }
 }

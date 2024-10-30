@@ -30,8 +30,8 @@ public class Order {
     @JoinColumn(name = "member_id")
     private Member member; // 주문 회원
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<OrderProduct> orderProducts = new ArrayList<>();
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderProduct> orderProducts = new ArrayList<>(); // 상품 목록
 
     @Builder
     public Order(Member member) {

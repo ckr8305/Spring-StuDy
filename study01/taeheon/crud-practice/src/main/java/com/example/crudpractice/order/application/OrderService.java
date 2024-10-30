@@ -55,7 +55,7 @@ public class OrderService {
             int count = orderSaveRequest.counts().get(i);
 
             Product product = productRepository.findById(productId)
-                    .orElseThrow(() -> new IllegalArgumentException("해당 상품이 없습니다. id = " + productId));
+                    .orElseThrow(() -> new IllegalArgumentException("해당하는 상품이 없습니다. id = " + productId));
 
 
             // 주문 상품 저장

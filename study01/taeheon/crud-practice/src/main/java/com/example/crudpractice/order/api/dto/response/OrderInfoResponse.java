@@ -10,5 +10,4 @@ public record OrderInfoResponse(
         @NotNull
         OrderProductResponse orderProducts
 ) {
-
 }

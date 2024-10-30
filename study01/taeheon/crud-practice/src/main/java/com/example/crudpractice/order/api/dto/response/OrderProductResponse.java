@@ -10,5 +10,4 @@ public record OrderProductResponse(
         @NotNull
         int totalAmount
 ) {
-
 }

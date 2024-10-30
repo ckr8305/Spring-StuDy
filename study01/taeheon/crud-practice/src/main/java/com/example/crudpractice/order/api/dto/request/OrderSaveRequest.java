@@ -12,5 +12,4 @@ public record OrderSaveRequest(
         @NotNull
         List<Integer> counts
 ) {
-
 }

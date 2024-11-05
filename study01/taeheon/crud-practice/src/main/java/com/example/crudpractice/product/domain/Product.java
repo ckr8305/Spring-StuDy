@@ -48,4 +48,11 @@ public class Product {
         this.quantity = requestDto.quantity();
         this.price = requestDto.price();
     }
+
+    public void reduceProductQuantity(int count) {
+        if (this.quantity - count < 0) {
+            throw new IllegalArgumentException("재고가 부족합니다.");
+        }
+        this.quantity -= count;
+    }
 }

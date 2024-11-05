@@ -1,5 +1,6 @@
 package com.example.crudpractice.member.application;
 
+import com.example.crudpractice.member.api.util.MemberConverter;
 import com.example.crudpractice.member.domain.Member;
 import com.example.crudpractice.member.domain.repository.MemberRepository;
 import com.example.crudpractice.member.api.dto.request.MemberSaveRequest;
@@ -21,19 +22,19 @@ public class MemberService {
 
     @Transactional // 변경
     public void saveMember(MemberSaveRequest requestDto) {
-        Member member = requestDto.toEntity(requestDto);
+        Member member = MemberConverter.toEntity(requestDto);
         memberRepository.save(member);
     }
 
     public List<MemberInfoResponse> findAllMember() {
         return memberRepository.findAll().stream()
-                .map(MemberInfoResponse::from)
+                .map(MemberConverter::toDTO)
                 .collect(Collectors.toList());
     }
 
     public MemberInfoResponse findMemberById(Long memberId) {
         Member member = checkMember(memberId);
-        return MemberInfoResponse.from(member);
+        return MemberConverter.toDTO(member);
     }
 
     @Transactional

@@ -8,7 +8,6 @@ import com.example.crudpractice.member.api.dto.response.MemberListResDto;
 import com.example.crudpractice.member.application.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

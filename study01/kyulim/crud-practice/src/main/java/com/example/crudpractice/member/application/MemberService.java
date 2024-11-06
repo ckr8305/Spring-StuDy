@@ -36,19 +36,19 @@ public class MemberService {
     }
 
     public MemberInfoResDto getMemberById(long id) {
-        Member member = memberRepository.findById(id).orElseThrow();
+        Member member = memberRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
         return MemberInfoResDto.from(member);
     }
 
     @Transactional
     public void updateMember(long id, MemberUpdateReqDto memberUpdateReqDto) {
-        Member member = memberRepository.findById(id).orElseThrow();
+        Member member = memberRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
         member.update(memberUpdateReqDto);
     }
 
     @Transactional
     public void deleteMember(long id) {
-        Member member = memberRepository.findById(id).orElseThrow();
+        Member member = memberRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
         memberRepository.delete(member);
     }
 }

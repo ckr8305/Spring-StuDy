@@ -36,6 +36,13 @@ public class Order {
         this.member = member;
     }
 
+    @Builder
+    public Order(LocalDateTime createAt, Member member, List<OrderProduct> orderProductList) {
+        this.createAt = createAt;
+        this.member = member;
+        this.orderProductList = orderProductList;
+    }
+
     public void addOrderProduct(OrderProduct orderProduct) {
         orderProductList.add(orderProduct);
     }

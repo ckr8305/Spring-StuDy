@@ -17,9 +17,9 @@ public class OrderController {
 
     private final OrderService orderService;
 
-    @PostMapping("/save")
-    public RspTemplate<Void> orderSave(@RequestBody OrderSaveRequest orderSaveRequest) {
-        orderService.orderSave(orderSaveRequest);
+    @PostMapping("/{memberId}")
+    public RspTemplate<Void> orderSave(@PathVariable("memberId") Long memberId, @RequestBody OrderSaveRequest orderSaveRequest) {
+        orderService.orderSave(orderSaveRequest, memberId);
         return new RspTemplate<>(HttpStatus.CREATED, "주문 저장");
     }
 
@@ -27,5 +27,11 @@ public class OrderController {
     public RspTemplate<List<OrderInfoResponse>> getOrderByMember(@PathVariable("memberId") Long memberId) {
         List<OrderInfoResponse> orderInfoResponseList = orderService.findOrderInfoByMemberId(memberId);
         return new RspTemplate<>(HttpStatus.OK, "사용자 주문 목록", orderInfoResponseList);
+    }
+
+    @DeleteMapping("/{memberId}/{orderId}")
+    public RspTemplate<Void> deleteOrder(@PathVariable("memberId") Long memberId, @PathVariable("orderId") Long orderId) {
+        orderService.deleteOrder(memberId, orderId);
+        return new RspTemplate<>(HttpStatus.OK, "주문 삭제");
     }
 }

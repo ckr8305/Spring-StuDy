@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class OrderConverter {
 
-    public static Order toOrderEntity(OrderSaveRequest request, Member member) {
+    public static Order toOrderEntity(Member member) {
         return Order.builder()
                 .member(member)
                 .build();

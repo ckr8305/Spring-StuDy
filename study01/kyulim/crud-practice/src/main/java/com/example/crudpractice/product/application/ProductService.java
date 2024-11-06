@@ -35,24 +35,24 @@ public class ProductService {
     }
 
     public ProductInfoResDto getProductById(long id) {
-        Product product = productRepository.findById(id).orElseThrow();
+        Product product = productRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("상품을 찾을 수 없습니다."));
         return ProductInfoResDto.from(product);
     }
 
     public ProductInfoResDto getProductByName(String name) {
-        Product product = productRepository.findByName(name);
+        Product product = productRepository.findByName(name).orElseThrow(() -> new IllegalArgumentException("상품을 찾을 수 없습니다."));
         return ProductInfoResDto.from(product);
     }
 
     @Transactional
     public void updateProduct(long id, ProductUpdateReqDto productUpdateReqDto) {
-        Product product = productRepository.findById(id).orElseThrow();
+        Product product = productRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("상품을 찾을 수 없습니다."));
         product.update(productUpdateReqDto);
     }
 
     @Transactional
     public void deleteProduct(long id) {
-        Product product = productRepository.findById(id).orElseThrow();
+        Product product = productRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("상품을 찾을 수 없습니다."));
         productRepository.delete(product);
     }
 }

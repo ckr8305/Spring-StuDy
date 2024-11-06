@@ -27,13 +27,16 @@ public class Order {
     @JoinColumn(name = "member_id")
     Member member = new Member();
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     List<OrderProduct> orderProductList = new ArrayList<>();
 
     @Builder
-    public Order(LocalDateTime createAt, Member member, List<OrderProduct> orderProductList) {
+    public Order(LocalDateTime createAt, Member member) {
         this.createAt = createAt;
         this.member = member;
-        this.orderProductList = orderProductList;
+    }
+
+    public void addOrderProduct(OrderProduct orderProduct) {
+        orderProductList.add(orderProduct);
     }
 }

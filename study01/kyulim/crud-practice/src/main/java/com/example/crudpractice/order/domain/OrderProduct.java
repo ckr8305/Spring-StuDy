@@ -23,11 +23,11 @@ public class OrderProduct {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
-    Order order = new Order();
+    Order order;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
-    Product product = new Product();
+    Product product;
 
     @Builder
     public OrderProduct(int totalAmount, int totalCount, Order order, Product product) {

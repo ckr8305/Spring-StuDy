@@ -50,6 +50,7 @@ public class ProductService {
         product.update(productUpdateReqDto);
     }
 
+    @Transactional
     public void deleteProduct(long id) {
         Product product = productRepository.findById(id).orElseThrow();
         productRepository.delete(product);

@@ -1,7 +1,6 @@
 package com.example.crudpractice.product.domain;
 
-import com.example.crudpractice.orderProduct.domain.OrderProduct;
-import com.example.crudpractice.product.api.dto.reqeust.ProductCreateReqDto;
+import com.example.crudpractice.order.domain.OrderProduct;
 import com.example.crudpractice.product.api.dto.reqeust.ProductUpdateReqDto;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -42,5 +41,11 @@ public class Product {
         this.name = productUpdateReqDto.name();
         this.quantity = productUpdateReqDto.quantity();
         this.price = productUpdateReqDto.price();
+    }
+
+    public void decreaseQuantity(int count) {
+        if (this.quantity < count)
+            throw new IllegalArgumentException("상품 수량이 부족합니다.");
+        this.quantity -= count;
     }
 }

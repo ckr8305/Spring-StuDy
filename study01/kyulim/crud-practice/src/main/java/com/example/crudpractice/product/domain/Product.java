@@ -27,7 +27,7 @@ public class Product {
     private LocalDateTime createAt;
 
     @OneToMany
-    List<OrderProduct> orderProductList = new ArrayList<>();
+    List<OrderProduct> orderProductList;
 
     @Builder
     public Product(String name, int quantity, int price, LocalDateTime createAt) {
@@ -47,5 +47,9 @@ public class Product {
         if (this.quantity < count)
             throw new IllegalArgumentException("상품 수량이 부족합니다.");
         this.quantity -= count;
+    }
+
+    public void increaseQuantity(int count) {
+        this.quantity += count;
     }
 }

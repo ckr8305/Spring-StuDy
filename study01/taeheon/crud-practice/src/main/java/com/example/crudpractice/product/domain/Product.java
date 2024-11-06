@@ -55,4 +55,8 @@ public class Product {
         }
         this.quantity -= count;
     }
+
+    public void increaseProductQuantity(int count) {
+        this.quantity += count;
+    }
 }

@@ -11,7 +11,6 @@ import com.example.crudpractice.product.domain.Product;
 import com.example.crudpractice.product.domain.repository.ProductRepository;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

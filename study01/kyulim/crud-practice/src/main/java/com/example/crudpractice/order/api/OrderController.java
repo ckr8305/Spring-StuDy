@@ -21,13 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class OrderController {
     public final OrderService orderService;
 
-    @PostMapping("/{id}")
-    public RspTemplate<Void> createOrder(@PathVariable("id") long memberId,
-                                        @RequestBody OrderCreateReqDto orderCreateReqDto) {
-        orderService.createOrder(memberId, orderCreateReqDto.name(), orderCreateReqDto.count());
-        return new RspTemplate<>(HttpStatus.CREATED, "주문 등록 !");
-    }
-
     @GetMapping("/{id}")
     public RspTemplate<List<OrderResDto>> getOrderDetail(@PathVariable("id") long memberId) {
         List<OrderResDto> orderDetail = orderService.getOrderDetail(memberId);

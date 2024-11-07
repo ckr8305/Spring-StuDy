@@ -6,11 +6,10 @@ import com.example.crudpractice.member.api.dto.response.MemberInfoResDto;
 import com.example.crudpractice.member.api.dto.response.MemberListResDto;
 import com.example.crudpractice.member.domain.Member;
 import com.example.crudpractice.member.domain.repository.MemberRepository;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor

@@ -6,12 +6,11 @@ import com.example.crudpractice.product.api.dto.respoonse.ProductInfoResDto;
 import com.example.crudpractice.product.api.dto.respoonse.ProductListResDto;
 import com.example.crudpractice.product.domain.Product;
 import com.example.crudpractice.product.domain.repository.ProductRepository;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
-
-import java.util.List;
 
 @Service
 @Transactional(readOnly = true)

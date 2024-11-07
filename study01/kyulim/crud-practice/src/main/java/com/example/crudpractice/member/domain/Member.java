@@ -1,6 +1,5 @@
 package com.example.crudpractice.member.domain;
 
-import com.example.crudpractice.member.api.dto.reqeust.MemberCreateReqDto;
 import com.example.crudpractice.member.api.dto.reqeust.MemberUpdateReqDto;
 import com.example.crudpractice.order.domain.Order;
 import jakarta.persistence.*;

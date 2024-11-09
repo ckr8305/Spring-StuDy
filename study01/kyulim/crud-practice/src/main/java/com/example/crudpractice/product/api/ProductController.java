@@ -31,27 +31,23 @@ public class ProductController {
 
     @GetMapping()
     public RspTemplate<ProductListResDto> getAllProduct() {
-        ProductListResDto products = productService.getAllProduct();
-        return new RspTemplate<>(HttpStatus.OK, "상품 전체 조회 !", products);
+        return new RspTemplate<>(HttpStatus.OK, "상품 전체 조회 !", productService.getAllProduct());
     }
 
     @GetMapping("/name/{name}")
     public RspTemplate<ProductInfoResDto> getProductByName(@PathVariable("name") String name) {
-        ProductInfoResDto product = productService.getProductByName(name);
-        return new RspTemplate<>(HttpStatus.OK, "상품 name으로 조회 !", product);
+        return new RspTemplate<>(HttpStatus.OK, "상품 name으로 조회 !", productService.getProductByName(name));
     }
 
     @GetMapping("/id/{id}")
     public RspTemplate<ProductInfoResDto> getProductById(@PathVariable("id") long id) {
-        ProductInfoResDto product = productService.getProductById(id);
-        return new RspTemplate<>(HttpStatus.OK, "상품 id로 조회 !", product);
+        return new RspTemplate<>(HttpStatus.OK, "상품 id로 조회 !", productService.getProductById(id));
     }
 
     @PatchMapping("/{id}")
     public RspTemplate<ProductInfoResDto> updateProduct(@PathVariable("id") long id, @RequestBody ProductUpdateReqDto productUpdateReqDto) {
         productService.updateProduct(id, productUpdateReqDto);
-        ProductInfoResDto product = productService.getProductById(id);
-        return new RspTemplate<>(HttpStatus.OK, "상품 수정 !", product);
+        return new RspTemplate<>(HttpStatus.OK, "상품 수정 !", productService.getProductById(id));
     }
 
     @DeleteMapping("id")

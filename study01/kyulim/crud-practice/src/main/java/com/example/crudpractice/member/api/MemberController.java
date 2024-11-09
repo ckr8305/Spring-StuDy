@@ -32,21 +32,18 @@ public class MemberController {
 
     @GetMapping()
     public RspTemplate<MemberListResDto> findMembers() {
-        MemberListResDto members = memberService.getAllMember();
-        return new RspTemplate<>(HttpStatus.OK, "전체 사용자 조회 !", members);
+        return new RspTemplate<>(HttpStatus.OK, "전체 사용자 조회 !", memberService.getAllMember());
     }
 
     @GetMapping("/{id}")
     public RspTemplate<MemberInfoResDto> findMemberById(@PathVariable("id") long id) {
-        MemberInfoResDto member = memberService.getMemberById(id);
-        return new RspTemplate<>(HttpStatus.OK, "사용자 조회 !", member);
+        return new RspTemplate<>(HttpStatus.OK, "사용자 조회 !", memberService.getMemberById(id));
     }
 
     @PatchMapping("/{id}")
     public RspTemplate<MemberInfoResDto> updateMember(@PathVariable("id") long id, @RequestBody MemberUpdateReqDto memberUpdateReqDto) {
         memberService.updateMember(id, memberUpdateReqDto);
-        MemberInfoResDto member = memberService.getMemberById(id);
-        return new RspTemplate<>(HttpStatus.OK, "사용자 조회 !", member);
+        return new RspTemplate<>(HttpStatus.OK, "사용자 수정 !", memberService.getMemberById(id));
     }
 
     @DeleteMapping()

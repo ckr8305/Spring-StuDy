@@ -1,5 +1,6 @@
 package com.example.crudpractice.member.application;
 
+import com.example.crudpractice.global.util.Check;
 import com.example.crudpractice.member.api.dto.reqeust.MemberCreateReqDto;
 import com.example.crudpractice.member.api.dto.reqeust.MemberUpdateReqDto;
 import com.example.crudpractice.member.api.dto.response.MemberInfoResDto;
@@ -17,11 +18,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final Check check;
 
     @Transactional
     public void saveMember(MemberCreateReqDto requestDto) {
-        Member member = requestDto.toEntity(requestDto);
-        memberRepository.save(member);
+        memberRepository.save(requestDto.toEntity(requestDto));
     }
 
     public MemberListResDto getAllMember() {
@@ -35,19 +36,16 @@ public class MemberService {
     }
 
     public MemberInfoResDto getMemberById(long id) {
-        Member member = memberRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
-        return MemberInfoResDto.from(member);
+        return MemberInfoResDto.from(check.checkMember(id));
     }
 
     @Transactional
     public void updateMember(long id, MemberUpdateReqDto memberUpdateReqDto) {
-        Member member = memberRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
-        member.update(memberUpdateReqDto);
+        check.checkMember(id).update(memberUpdateReqDto);
     }
 
     @Transactional
     public void deleteMember(long id) {
-        Member member = memberRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
-        memberRepository.delete(member);
+        memberRepository.delete(check.checkMember(id));
     }
 }

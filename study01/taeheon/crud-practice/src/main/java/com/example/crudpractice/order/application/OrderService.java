@@ -37,23 +37,28 @@ public class OrderService {
         orderRepository.save(order);
 
         // 주문 상품 목록: 싱품 ID 목록과 상품의 수량
-        for (int i = 0; i < orderSaveRequest.productIds().size(); i++) {
-            Long productId = orderSaveRequest.productIds().get(i);
-            int count = orderSaveRequest.counts().get(i);
+        List<OrderProduct> orderProducts = orderSaveRequest.productIds().stream()
+                .flatMap(productId -> {
+                    int index = orderSaveRequest.productIds().indexOf(productId);
+                    int count = orderSaveRequest.counts().get(index);
 
-            Product product = productRepository.findById(productId)
-                    .orElseThrow(() -> new IllegalArgumentException("해당하는 상품이 없습니다. id = " + productId));
+                    Product product = productRepository.findById(productId)
+                            .orElseThrow(() -> new IllegalArgumentException("해당하는 상품이 없습니다. id = " + productId));
 
-            if (count > product.getQuantity()) {
-                throw new IllegalArgumentException("상품 수량이 부족합니다.");
-            }
-            // 제품 수량 감소
-            product.reduceProductQuantity(count);
+                    if (count > product.getQuantity()) {
+                        throw new IllegalArgumentException("상품 수량이 부족합니다.");
+                    }
 
-            // 주문 상품 저장
-            OrderProduct orderProduct = OrderConverter.toOrderProductEntity(order, product, count);
-            orderProductRepository.save(orderProduct);
-        }
+                    // 제품 수량 감소
+                    product.reduceProductQuantity(count);
+
+                    // 주문 상품 생성
+                    OrderProduct orderProduct = OrderConverter.toOrderProductEntity(order, product, count);
+                    return List.of(orderProduct).stream();
+                })
+                .toList();
+        // 주문 상품 저장
+        orderProductRepository.saveAll(orderProducts);
     }
 
     public List<OrderInfoResponse> findOrderInfoByMemberId(Long id) {
@@ -91,8 +96,7 @@ public class OrderService {
     }
 
     private Member checkMember(Long id) {
-        Member member = memberRepository.findById(id)
+        return memberRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 회원이 없습니다."));
-        return member;
     }
 }

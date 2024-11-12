@@ -1,17 +1,16 @@
 package com.example.crudpractice.member.application;
 
-import com.example.crudpractice.member.api.util.MemberConverter;
-import com.example.crudpractice.member.domain.Member;
-import com.example.crudpractice.member.domain.repository.MemberRepository;
 import com.example.crudpractice.member.api.dto.request.MemberSaveRequest;
 import com.example.crudpractice.member.api.dto.request.MemberUpdateRequest;
 import com.example.crudpractice.member.api.dto.response.MemberInfoResponse;
+import com.example.crudpractice.member.api.util.MemberConverter;
+import com.example.crudpractice.member.domain.Member;
+import com.example.crudpractice.member.domain.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -29,7 +28,7 @@ public class MemberService {
     public List<MemberInfoResponse> findAllMember() {
         return memberRepository.findAll().stream()
                 .map(MemberConverter::toDTO)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public MemberInfoResponse findMemberById(Long memberId) {
@@ -50,9 +49,8 @@ public class MemberService {
     }
 
     private Member checkMember(Long memberId) {
-        Member member = memberRepository.findById(memberId).orElseThrow(() ->
+        return memberRepository.findById(memberId).orElseThrow(() ->
                 new IllegalArgumentException("해당하는 사용자가 없습니다. id = " + memberId));
-        return member;
     }
 
 }

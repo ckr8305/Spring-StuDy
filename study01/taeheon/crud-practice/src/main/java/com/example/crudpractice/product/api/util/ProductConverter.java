@@ -1,7 +1,6 @@
 package com.example.crudpractice.product.api.util;
 
 import com.example.crudpractice.product.api.dto.request.ProductSaveRequest;
-import com.example.crudpractice.product.api.dto.request.ProductUpdateRequest;
 import com.example.crudpractice.product.api.dto.response.ProductInfoResponse;
 import com.example.crudpractice.product.domain.Product;
 import lombok.AccessLevel;

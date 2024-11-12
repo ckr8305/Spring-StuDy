@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -29,7 +28,7 @@ public class ProductService {
     public List<ProductInfoResponse> findAllProduct() {
         return productRepository.findAll().stream()
                 .map(ProductConverter::toDTO)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public ProductInfoResponse findProductById(Long id) {
@@ -50,8 +49,7 @@ public class ProductService {
     }
 
     private Product checkProduct(Long id) {
-        Product product = productRepository.findById(id).orElseThrow(() ->
+        return productRepository.findById(id).orElseThrow(() ->
                 new IllegalArgumentException("해당하는 상품이 존재하지 않습니다 id = " + id));
-        return product;
     }
 }

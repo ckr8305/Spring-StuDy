@@ -9,11 +9,4 @@ public record ProductUpdateReqDto(
     int quantity,
     int price
 ) {
-    public Product toEntity(ProductUpdateReqDto productReqDtoDto) {
-        return Product.builder()
-                .name(productReqDtoDto.name())
-                .quantity(productReqDtoDto.quantity())
-                .price(productReqDtoDto.price())
-                .build();
-    }
 }

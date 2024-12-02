@@ -1,5 +1,6 @@
 package com.example.crudpractice.product.application;
 
+import com.example.crudpractice.global.util.Check;
 import com.example.crudpractice.product.api.dto.reqeust.ProductCreateReqDto;
 import com.example.crudpractice.product.api.dto.reqeust.ProductUpdateReqDto;
 import com.example.crudpractice.product.api.dto.respoonse.ProductInfoResDto;
@@ -17,11 +18,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequiredArgsConstructor
 public class ProductService {
     private final ProductRepository productRepository;
+    private final Check check;
 
     @Transactional
     public void saveProduct(@RequestBody ProductCreateReqDto productReqDto) {
-        Product product = productReqDto.toEntity(productReqDto);
-        productRepository.save(product);
+        productRepository.save(productReqDto.toEntity(productReqDto));
     }
 
     public ProductListResDto getAllProduct() {
@@ -34,24 +35,20 @@ public class ProductService {
     }
 
     public ProductInfoResDto getProductById(long id) {
-        Product product = productRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("상품을 찾을 수 없습니다."));
-        return ProductInfoResDto.from(product);
+        return ProductInfoResDto.from(check.checkProduct(id));
     }
 
     public ProductInfoResDto getProductByName(String name) {
-        Product product = productRepository.findByName(name).orElseThrow(() -> new IllegalArgumentException("상품을 찾을 수 없습니다."));
-        return ProductInfoResDto.from(product);
+        return ProductInfoResDto.from(check.checkProductName(name));
     }
 
     @Transactional
     public void updateProduct(long id, ProductUpdateReqDto productUpdateReqDto) {
-        Product product = productRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("상품을 찾을 수 없습니다."));
-        product.update(productUpdateReqDto);
+        check.checkProduct(id).update(productUpdateReqDto);
     }
 
     @Transactional
     public void deleteProduct(long id) {
-        Product product = productRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("상품을 찾을 수 없습니다."));
-        productRepository.delete(product);
+        productRepository.delete(check.checkProduct(id));
     }
 }

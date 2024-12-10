@@ -35,3 +35,12 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### JWT Secret ###
+/src/main/resources/application-jwt.yml
+
+### DB ###
+/src/main/resources/db
+
+### prod ###
+/src/main/resources/application-prod.yml

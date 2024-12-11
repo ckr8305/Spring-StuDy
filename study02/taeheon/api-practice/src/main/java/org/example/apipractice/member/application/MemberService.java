@@ -5,10 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.apipractice.global.jwt.TokenProvider;
 import org.example.apipractice.global.jwt.domain.RefreshToken;
 import org.example.apipractice.global.jwt.domain.RefreshTokenRepository;
-import org.example.apipractice.member.api.dto.request.MemberEmailRequest;
-import org.example.apipractice.member.api.dto.request.MemberLoginRequest;
-import org.example.apipractice.member.api.dto.request.MemberSaveRequest;
-import org.example.apipractice.member.api.dto.request.RefreshRequest;
+import org.example.apipractice.member.api.dto.request.*;
+import org.example.apipractice.member.api.dto.response.MemberInfoResponse;
 import org.example.apipractice.member.api.dto.response.MemberLoginResponse;
 import org.example.apipractice.member.domain.Member;
 import org.example.apipractice.member.domain.MemberRepository;
@@ -18,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -31,7 +30,7 @@ public class MemberService {
 
     // 회원 가입
     @Transactional
-    public void join(MemberSaveRequest memberSaveRequest) {
+    public void register(MemberSaveRequest memberSaveRequest) {
         // 이메일 존재 여부
         if (memberRepository.existsByEmail(memberSaveRequest.email())) {
             throw new InvalidMemberException("이미 존재하는 이메일입니다.");
@@ -75,7 +74,7 @@ public class MemberService {
                 () -> new IllegalArgumentException("Refresh Token이 존재하지 않습니다."));
 
         if (storedToken.isExpired() || !storedToken.getToken().equals(refreshRequest.refreshToken())) {
-            new IllegalArgumentException("Token이 만료되거나 일치하지 않습니다.");
+            throw new IllegalArgumentException("Token이 만료되거나 일치하지 않습니다.");
         }
 
         // 새로운 AccessToken 발급
@@ -84,7 +83,6 @@ public class MemberService {
 
     @Transactional
     public void logout(MemberEmailRequest memberEmailRequest) {
-        System.out.println(memberEmailRequest.email());
         log.debug("email -> {}", memberEmailRequest.email());
         // 이메일이 존재하는지 확인
         if (!refreshTokenRepository.existsByEmail(memberEmailRequest.email())) {
@@ -94,4 +92,31 @@ public class MemberService {
         refreshTokenRepository.deleteByEmail(memberEmailRequest.email());
     }
 
+    public MemberInfoResponse findMemberById(Long id) {
+        Member member = getMember(id);
+        return MemberInfoResponse.toDto(member);
+    }
+
+    public List<MemberInfoResponse> findAllMember() {
+        List<Member> memberList = memberRepository.findAll();
+        return memberList.stream()
+                .map(MemberInfoResponse::toDto)
+                .toList();
+    }
+
+    @Transactional
+    public void updateMember(Long id, MemberUpdateRequest memberUpdateRequest) {
+        Member member = getMember(id);
+        member.update(memberUpdateRequest);
+    }
+
+    @Transactional
+    public void deleteMember(Long id) {
+        memberRepository.deleteById(id);
+    }
+
+    private Member getMember(Long id) {
+        return memberRepository.findById(id).orElseThrow(() ->
+                new IllegalArgumentException("해당하는 사용자가 존재하지 않습니다."));
+    }
 }

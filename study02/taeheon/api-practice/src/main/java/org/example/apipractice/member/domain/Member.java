@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.apipractice.comment.domain.Comment;
+import org.example.apipractice.member.api.dto.request.MemberUpdateRequest;
 import org.example.apipractice.post.domain.Post;
 import org.example.apipractice.vote.domain.Vote;
 
@@ -56,4 +57,9 @@ public class Member {
         this.createAt = createAt;
     }
 
+    public void update(MemberUpdateRequest memberUpdateRequest) {
+        this.nickName = memberUpdateRequest.nickname();
+        this.password = memberUpdateRequest.password();
+        this.age = memberUpdateRequest.age();
+    }
 }
